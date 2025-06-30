@@ -53,12 +53,23 @@
 // export default Navbar
 
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { assets } from '../assets/assets';
 
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-
+   
+  useEffect(()=>{
+    if(showMobileMenu){
+      document.body.style.overflow='hidden'
+    }else{
+      document.body.style.overflow='auto'
+    }
+    return()=>{
+      document.body.style.overflow='auto'
+    };
+  },[showMobileMenu]
+  )
   return (
     <div className='absolute top-0 left-0 w-full z-10'>
       {/* Top Navbar */}
@@ -117,7 +128,7 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <a
+            <a 
               href='#About'
               onClick={() => setShowMobileMenu(false)}
               className='px-4 py-2 rounded-full inline-block hover:bg-gray-100 transition'
